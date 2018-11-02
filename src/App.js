@@ -9,11 +9,30 @@ class App extends Component {
     timerIDs: []
   }
 
-
   //Your code here:
+  componentDidMount(){
+    this.handleAddTimer()
 
+  }
 
+  // returns array of components written in JSX, mapped from this.state.timerIDs
+  renderTimers = () => this.state.timerIDs.map(id => {
+    return <Timer key={id} id={id} removeTimer={this.removeTimer} />
+  })
 
+  // adds a random number for timer ID
+  handleAddTimer = () => {
+    this.setState(prevState => ({
+      timerIDs: [...prevState.timerIDs, Math.floor(Math.random()*1000)]
+    }))
+  }
+
+  // removeTimer updates state, removing any timer that matches the provided author
+  removeTimer = id => {
+    this.setState(prevState => ({
+      timerIDs: prevState.timerIDs.filter(timer_id => timer_id !== id)
+    }))
+  }
 
 
 
@@ -35,25 +54,6 @@ class App extends Component {
 
       </div>
     );
-  }
-
-  // returns array of components written in JSX, mapped from this.state.timerIDs
-  renderTimers = () => this.state.timerIDs.map(id => {
-    return <Timer key={id} id={id} removeTimer={this.removeTimer} />
-  })
-
-  // adds a random number for timer ID
-  handleAddTimer = () => {
-    this.setState(prevState => ({
-      timerIDs: [...prevState.timerIDs, Math.floor(Math.random()*1000)]
-    }))
-  }
-
-  // removeTimer updates state, removing any timer that matches the provided author
-  removeTimer = id => {
-    this.setState(prevState => ({
-      timerIDs: prevState.timerIDs.filter(timer_id => timer_id !== id)
-    }))
   }
 
 
